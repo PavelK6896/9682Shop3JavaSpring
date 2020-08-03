@@ -12,36 +12,49 @@
 </head>
 
 <body>
-<div th:replace="~{components/navigation :: navigation(About)}"/>
-<h1>Добавить новый товар</h1>
+<div class="container">
+    <div th:replace="~{components/navigation :: navigation(About)}"/>
+    <h1>Добавить новый товар</h1>
 
-<h3>продукты</h3>
-<form th:action="@{/products/add}" method="POST">
-    <input type="text" name="id" placeholder="Введите id"/>
-    <input type="text" name="title" placeholder="Введите название"/>
-    <input type="text" name="price" placeholder="Введите цену"/>
-    <input type="text" name="description" placeholder="Введите description"/>
+    <h3>продукты</h3>
+    <form th:action="@{/products/add}" method="POST">
+        <input type="text" name="id" placeholder="Введите id"/>
+        <input type="text" name="title" placeholder="Введите название"/>
+        <input type="text" name="price" placeholder="Введите цену"/>
+        <input type="text" name="description" placeholder="Введите description"/>
 
-    <div th:each="c :  ${category}">
-        <input type="checkbox" th:name="listIdLongCategory" th:value="${c.id}" th:text="${c.title}">
+
+        <div class="row ml-1">
+            <input class="m-2"
+                   type="checkbox"
+                   th:each="c :  ${category}"
+                   th:name="listIdLongCategory"
+                   th:value="${c.id}"
+                   th:text="${c.title}">
+        </div>
+        <input class="my-3" type="submit"/>
+    </form>
+    <div class="row" th:each="p :  ${product}">
+        <div th:text="${p} + ' /' + ${p.categories}"></div>
+        <form th:action="@{/products/delete}" method="POST">
+            <input type="text" hidden name="id" th:value="${p.id}"/>
+            <input type="submit" value="delete"/>
+        </form>
     </div>
 
-    <input type="submit"/>
-</form>
-<div th:each="p :  ${product}" th:text="${p} + ' /' + ${p.categories}"></div>
+    <br/>
+    <h3>категории</h3>
+    <form th:action="@{/products/add/category}" method="POST">
+        <input type="text" name="id" placeholder="Введите id"/>
+        <input type="text" name="title" placeholder="Введите название"/>
+        <input type="submit"/>
+    </form>
+
+    <div th:each="c :  ${category}" th:text="${c}">
+
+    </div>
+</div>
 
 
-
-<br/>
-<h3>категории</h3>
-<form th:action="@{/products/add/category}" method="POST">
-    <input type="text" name="id" placeholder="Введите id"/>
-    <input type="text" name="title" placeholder="Введите название"/>
-    <input type="submit"/>
-</form>
-
-<div th:each="c :  ${category}" th:text="${c}"></div>
-
-<br>
 </body>
 </html>

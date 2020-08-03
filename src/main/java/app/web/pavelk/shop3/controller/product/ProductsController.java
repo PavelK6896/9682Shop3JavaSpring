@@ -66,6 +66,12 @@ public class ProductsController {
         return "redirect:/products/add";
     }
 
+    @PostMapping("/delete")
+    public String saveNewProduct(@RequestParam("id") Long id) {
+        productsService.deleteById(id);
+        return "redirect:/products/add";
+    }
+
     @PostMapping("/add/category")
     public String saveNewCategory(@ModelAttribute Category category) {
         categoriesService.save(category);

@@ -1,7 +1,7 @@
 package app.web.pavelk.shop3.service;
 
 import app.web.pavelk.shop3.entity.product.Product;
-import app.web.pavelk.shop3.entity.product.dtos.ProductDto;
+import app.web.pavelk.shop3.entity.product.dto.ProductDto;
 import app.web.pavelk.shop3.exceptions.ProductNotFoundException;
 import app.web.pavelk.shop3.repo.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ProductsService {
         if (page < 1L) {
             page = 1;
         }
-       return productsRepository.findAll(spec, PageRequest.of(page - 1, 4));
+       return productsRepository.findAll(spec, PageRequest.of(page - 1, 5));
     }
 
 

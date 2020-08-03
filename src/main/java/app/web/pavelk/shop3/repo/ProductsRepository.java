@@ -2,7 +2,7 @@ package app.web.pavelk.shop3.repo;
 
 
 import app.web.pavelk.shop3.entity.product.Product;
-import app.web.pavelk.shop3.entity.product.dtos.ProductDto;
+import app.web.pavelk.shop3.entity.product.dto.ProductDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

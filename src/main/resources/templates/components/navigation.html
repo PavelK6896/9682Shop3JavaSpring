@@ -14,7 +14,8 @@
 
 <div th:fragment="navigation(activeTab)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
+
+        <div class="collapse navbar-collapse " id="navbarNav">
             <ul class="navbar-nav">
 
                 <li class="nav-item" th:classappend="${activeTab == 'Home' ? 'active' : ''}">
@@ -26,11 +27,67 @@
                 <li class="nav-item" th:classappend="${activeTab == 'About' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{'/about'}" th:text="#{nav.about}"></a>
                 </li>
-                <li class="nav-item" th:classappend="${activeTab == 'add' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/products/add}" th:text="'add/edit'"></a>
+
+                <li sec:authorize="isAuthenticated()"
+                    class="nav-item" th:classappend="${activeTab == 'Profile' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{'/profile'}" th:text="#{nav.profile}"></a>
                 </li>
 
+                <li sec:authorize="hasRole('ADMIN')"
+                    class="nav-item"
+                    th:classappend="${activeTab == 'add' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/products/add}" th:text="'add/admin'"></a>
+                </li>
+
+                <li sec:authorize="hasRole('ADMIN')"
+                    class="nav-item"
+                    th:classappend="${activeTab == 'profile' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/profile/admin}" th:text="'profile/admin'"></a>
+                </li>
             </ul>
+        </div>
+
+
+        <div class="form-inline ">
+            <div class="col">
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST"
+                      class="form-inline my-2 my-lg-0">
+                    <div sec:authentication="name"></div>
+                    <button id="navLogout" class="btn btn-outline-secondary" type="submit"
+                            th:text="#{nav.logout}"></button>
+                </form>
+
+                <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0 row" th:action="@{/authenticate}"
+                      method="POST">
+                    <div class="col">
+                        <input id="navLoginField" class="form-control row " type="text"
+                               th:placeholder="#{nav.login.field}"
+                               name="username"
+                               required
+                               aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                        <input id="navPasswordField" class="form-control row" type="password"
+                               th:placeholder="#{nav.password}" name="password"
+                               required
+                               aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                    </div>
+
+                    <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm " style="margin-left: 10px;"
+                            type="submit" th:text="#{nav.login.submit}"></button>
+                </form>
+            </div>
+            <div class="col">
+                <div class="dropdown" style="margin-left: 10px;">
+                    <button class="btn btn-outline-settcondary dropdown-toggle"
+                            th:text="#{nav.lang}" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{'/?lang=ru'}">РУС</a>
+                        <a class="dropdown-item" th:href="@{'/?lang=en'}">ENG</a>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </nav>
 </div>
