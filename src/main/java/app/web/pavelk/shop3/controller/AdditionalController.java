@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdditionalController {
     @GetMapping("/about")
     public String aboutPage() {
-        return "about";
+        return "page/about";
     }
 
     @GetMapping("/")
     public String homepage() {
-        return "index";
+        return "page/index";
     }
     
 }
