@@ -24,11 +24,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .authorizeRequests()
+                .antMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .antMatchers("/orders/*", "/profile/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/products/add/*", "/profile/admin/*").hasAnyRole("ADMIN")
                 .anyRequest().permitAll()
+
                 .and()
+                .csrf().disable()
+
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")

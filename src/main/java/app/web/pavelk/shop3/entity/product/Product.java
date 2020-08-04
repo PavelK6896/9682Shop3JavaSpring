@@ -1,11 +1,13 @@
 package app.web.pavelk.shop3.entity.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(of = {"id", "title", "price"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // лениво сериализатор что то для getOneT
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
