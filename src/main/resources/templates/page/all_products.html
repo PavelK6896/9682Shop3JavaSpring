@@ -68,6 +68,9 @@
             <td th:text="${p.title}"></td>
             <td th:text="${p.price}"></td>
             <td th:text="${p.description}"></td>
+
+            <td><a class="btn btn-primary" th:href="@{'/cart/add/' + ${p.id}}">Добавить в корзину</a></td>
+
             <td>
             <a th:each="c : ${p.categories}" th:text="${c.title} + ' '"></a>
             </td>

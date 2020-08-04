@@ -35,7 +35,7 @@ public class ProfileController {
     @GetMapping
     public String profileDto(Model model, Principal principal) {
         model.addAttribute("profile", userService.findByUsernameDto(principal.getName()));
-        return "page/profile";
+        return "page/user/profile";
     }
 
     @Secured("ROLE_ADMIN")//уровень методов защта
