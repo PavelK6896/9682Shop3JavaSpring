@@ -1,0 +1,35 @@
+<h1>Product</h1>
+{{model.message}}
+
+<button ng-click="getListProduct()">getListProduct</button>
+
+<p> All product</p>
+{{size + 1}}
+<div ng-repeat='p in products'>
+    {{p}}
+    <button ng-click="deleteProduct(p.id)">delete</button>
+    <button ng-click="update(p)">update</button>
+</div>
+
+<br/>
+<hr/>
+<hr/>
+
+<input type="text" ng-model="product.id" placeholder="id">id<br/>
+<input type="text" ng-model="product.title" placeholder="title">title<br/>
+<input type="text" ng-model="product.description" placeholder="description">description<br/>
+<input type="text" ng-model="product.price" placeholder="price">price<br/>
+<input type="text" ng-model="product.categories[0].id" placeholder="categories.id">categories.id<br/>
+
+<button ng-click="addProduct()">addProduct update</button>
+<br/>
+<hr/>
+{{product}}
+<br/>
+<hr/>
+
+
+
+
+
+
