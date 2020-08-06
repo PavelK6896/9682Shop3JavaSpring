@@ -17,8 +17,8 @@ import java.util.List;
 //swagger-ui.html
 //T тип для контролера по сущьности созданной
 //R репозиторий для этой же сущьности
-//@CrossOrigin("*")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin("*")
+//@CrossOrigin(origins = "http://localhost:8080")
 @Api("CRUD")
 public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>> {
     protected R repo;
@@ -35,7 +35,7 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>
     }
 
     //2
-    @GetMapping(value = "list", produces = "application/json")
+    @GetMapping(value = "/list", produces = "application/json")
     @ApiOperation("getAllList")
     public List<T> getAllList() {
         return repo.findAll();
@@ -98,7 +98,8 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>
     @DeleteMapping
     @ApiOperation("Removes all products")
     public void deleteAllProducts() {
-        repo.deleteAll();
+        System.out.println("DeleteMapping");
+       // repo.deleteAll();
     }
 
     @ExceptionHandler
