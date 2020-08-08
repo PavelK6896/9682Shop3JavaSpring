@@ -35,13 +35,11 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
 
-    // @CrossOrigin("*") или
-    // для метода и адреса
+    // @CrossOrigin("*") переопредилит
+    // для всего
 //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**")
 //                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS").allowedOrigins("*");
 //    }
-
-
 }

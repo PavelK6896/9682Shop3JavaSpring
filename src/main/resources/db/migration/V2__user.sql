@@ -6,6 +6,8 @@ create table users (
   email                 VARCHAR(50) UNIQUE,
   first_name            VARCHAR(50),
   last_name             VARCHAR(50),
+  address_city             VARCHAR(50),
+  address_street             VARCHAR(50),
   PRIMARY KEY (id)
 );
 
@@ -15,6 +17,7 @@ create table roles (
   name                  VARCHAR(50) not null,
   primary key (id)
 );
+
 
 create table privileges1 (
   id                    serial,
@@ -51,10 +54,10 @@ values
 ('ROLE_USER'), ('ROLE_ADMIN');
 
 
-insert into users (phone, password, first_name, last_name, email)
+insert into users (phone, password, first_name, last_name, email, address_city, address_street)
 values
-('1','$2y$12$2LVAI8g8ci9Iq/Zod6Zb4uQYw1cLxTIG669BlOJP7W8Xo6dgeHVXa','admin','admin','admin@gmail.com'),
-('2','$2y$12$2LVAI8g8ci9Iq/Zod6Zb4uQYw1cLxTIG669BlOJP7W8Xo6dgeHVXa','user','user','user@gmail.com');
+('1','$2y$12$2LVAI8g8ci9Iq/Zod6Zb4uQYw1cLxTIG669BlOJP7W8Xo6dgeHVXa','admin','admin','admin@gmail.com', 'g', 'n'),
+('2','$2y$12$2LVAI8g8ci9Iq/Zod6Zb4uQYw1cLxTIG669BlOJP7W8Xo6dgeHVXa','user','user','user@gmail.com', 'v', 'b');
 
 insert into users_roles (user_id, role_id)
 values
@@ -66,3 +69,5 @@ values
 (1, 1),
 (2, 1),
 (2, 2);
+
+

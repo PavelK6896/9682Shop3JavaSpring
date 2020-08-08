@@ -42,6 +42,11 @@
 
     Users:
     <div th:each="p : ${profileAll}">
+        <div th:each="c : ${p}">
+            <div th:text="${c}"></div>
+        </div>
+        <div th:text="${p.getAddress()}"></div>
+
         <div th:text="${p.getId()}"></div>
         <div th:text="${p.getPhone()}"></div>
         <div th:text="${p.getFullName()}"></div>

@@ -40,10 +40,10 @@ public class ProfileController {
     }
 
 
-//    @GetMapping("/ww")
-//    public String werwerw(Model model) {
-//        return "page/user/profile";
-//    }
+    @GetMapping("/ww")
+    public String werwerw(Model model) {
+        return "page/user/profile";
+    }
 
 
 //    @Secured("ADMIN")//уровень методов защта
