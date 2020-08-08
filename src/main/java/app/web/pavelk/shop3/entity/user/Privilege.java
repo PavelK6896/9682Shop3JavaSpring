@@ -10,9 +10,10 @@ import java.util.Collection;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "roles")
+@Table(name = "privileges1")
 @EqualsAndHashCode(of = {"id"})
-public class Role {
+public class Privilege {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,15 +22,7 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
-
-    @ManyToMany
-    @JoinTable(
-            name = "roles_privileges1",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
-
+//    @ManyToMany(mappedBy = "privileges1")
+//    private Collection<Role> roles;
 
 }

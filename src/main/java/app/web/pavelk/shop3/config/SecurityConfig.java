@@ -24,11 +24,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .antMatchers("/orders/*", "/profile/*").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/products/add/*", "/profile/admin/*").hasAnyRole("ADMIN")
+//                .antMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
+
+                //////////////////////
+          //    .antMatchers("/profile/ww").hasAnyAuthority("ROLE_ADMIN")
+          //    .antMatchers("/profile/ww/**").hasAnyAuthority("ROLE_ADMIN")
+          //    .antMatchers("/profile/ww").hasAnyRole("ADMIN")
+          //    .antMatchers("/profile/ww/**").hasAnyRole("ADMIN")
+                /////////////////////////////
+                .antMatchers("/orders/**", "/profile/**").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/products/add/**", "/profile/admin/**").hasAnyAuthority("ROLE_ADMIN")
+
                 .anyRequest().permitAll()
 
                 .and()

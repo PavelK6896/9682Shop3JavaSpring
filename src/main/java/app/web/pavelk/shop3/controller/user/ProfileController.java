@@ -31,20 +31,26 @@ public class ProfileController {
         this.userService = userService;
     }
 
-
     @GetMapping
     public String profileDto(Model model, Principal principal) {
         model.addAttribute("profile", userService.findByUsernameDto(principal.getName()));
+
+
         return "page/user/profile";
     }
 
-    @Secured("ROLE_ADMIN")//уровень методов защта
+
+//    @GetMapping("/ww")
+//    public String werwerw(Model model) {
+//        return "page/user/profile";
+//    }
+
+
+//    @Secured("ADMIN")//уровень методов защта
     @GetMapping("/admin")
     public String adminProfile(Model model) {
         model.addAttribute("profileAll", userService.findAll());
         model.addAttribute("role", userService.findAllRole());
-
-
         return "page/admin/add_profile";
     }
 
