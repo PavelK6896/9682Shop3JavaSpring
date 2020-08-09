@@ -62,6 +62,10 @@
                     th:classappend="${activeTab == 'profile' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/profile/admin}" th:text="'profile/admin'"></a>
                 </li>
+
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="btn btn-outline-warning" th:href="@{/register}" th:text="'Регистрация'" />
+                </li>
             </ul>
         </div>
 
@@ -92,7 +96,9 @@
                     <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm " style="margin-left: 10px;"
                             type="submit" th:text="#{nav.login.submit}"></button>
                 </form>
+
             </div>
+
             <div class="col">
                 <div class="dropdown" style="margin-left: 10px;">
                     <button class="btn btn-outline-settcondary dropdown-toggle"

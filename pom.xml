@@ -66,6 +66,14 @@
             <version>5.4.19.Final</version>
         </dependency>
 
+<!--        validator-->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.5.Final</version>
+        </dependency>
+
+
 
         <!--		thymeleaf-->
         <dependency>

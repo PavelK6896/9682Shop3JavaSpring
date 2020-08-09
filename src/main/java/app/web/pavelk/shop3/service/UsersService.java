@@ -1,10 +1,10 @@
 package app.web.pavelk.shop3.service;
 
 
-import app.web.pavelk.shop3.entity.product.Category;
 import app.web.pavelk.shop3.entity.user.Privilege;
 import app.web.pavelk.shop3.entity.user.Role;
 import app.web.pavelk.shop3.entity.user.User;
+import app.web.pavelk.shop3.entity.user.dto.SystemUser;
 import app.web.pavelk.shop3.entity.user.dto.UserDto;
 import app.web.pavelk.shop3.repo.RolesRepository;
 import app.web.pavelk.shop3.repo.UsersRepository;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,7 +53,7 @@ public class UsersService implements UserDetailsService {
 
         }
 
-        return  new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User(
                 user.getPhone(), user.getPassword(), getAuthorities(user.getRoles()));
 
     }
@@ -126,8 +127,6 @@ public class UsersService implements UserDetailsService {
         usersRepository.delete(usersRepository.findByPhone(phone, User.class));
     }
 
-
-
     public Iterable<Role> findAllById(List<Long> searchValues) {
         System.out.println("findAllById ");
         return rolesRepository.findAllById(searchValues);
@@ -139,6 +138,27 @@ public class UsersService implements UserDetailsService {
     }
 
 
+    @Transactional
+    public User saveRegisterUser(SystemUser systemUser) {
+        User user = new User();
+        if (findByPhone(systemUser.getPhone()) != null) {
+            throw new RuntimeException("User with phone " + systemUser.getPhone() + " is already exist");
+        }
+
+        user.setPhone(systemUser.getPhone());
+
+        user.setPassword(bCryptPasswordEncoder.encode(systemUser.getPassword()));
+        user.setFirstName(systemUser.getFirstName());
+        user.setLastName(systemUser.getLastName());
+        user.setEmail(systemUser.getEmail());
+
+//        user.setAddress(new Address());
+//        Arrays.asList(rolesService.findByName("ROLE_CUSTOMER"))
+
+        user.setRoles(rolesRepository.findById(1L).stream().collect(Collectors.toCollection(ConcurrentLinkedDeque::new)));
+
+        return usersRepository.save(user);
+    }
 
 
 }
