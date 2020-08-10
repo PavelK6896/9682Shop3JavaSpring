@@ -1,1 +1,8 @@
 -Dspring.profiles.active=dev
+
+heroku login
+mvn clean heroku:deploy
+heroku logs --tail --app pavelkshop3
+
+heroku git:remote -a pavelkshop3
+git push heroku master
