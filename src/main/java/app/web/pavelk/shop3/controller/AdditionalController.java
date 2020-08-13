@@ -21,10 +21,6 @@ public class AdditionalController {
         return "page/login_page";
     }
 
-    @GetMapping("/api/v1/authorization")
-    @ResponseBody
-    public boolean authorization() {
-        return true;
-    }
+
     
 }

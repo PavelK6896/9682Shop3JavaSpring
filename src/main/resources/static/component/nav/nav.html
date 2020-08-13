@@ -1,22 +1,30 @@
-<div ng-controller="c1 as c1" style="display: flex; justify-content: space-around">
+<div ng-controller="navBarCtrl" style="
+display: flex;
+justify-content: space-around;
+border: 1px solid #555;
+">
+
+<!--    g-hide-->
+<!--    ng-show-->
 
     <div>
         <a href="#!/">Home</a>
         <a href="#!/product">Product</a>
         <a href="#!/about">about</a>
+        <a href="#!/cart">cart</a>
+        <a ng-if='admin'   href="#!/add">add/product</a>
+        <a ng-if='btn1'   href="#!/profile">profile</a>
+        <a ng-if='admin'   href="#!/profile/all">profile/all</a>
     </div>
 
     <div>
-        <div>Name: {{name}} <br/> {{text1}} </div>
-
-        <input type="text" ng-model="username" placeholder="login"><br/>
-        <input type="text" ng-model="password" placeholder="password"><br/>
-
+        <div>{{name}}  <span ng-if='admin'> admin: {{admin}} </span> <br/> {{text1}}</div>
         <input type="button" ng-if="btn1" ng-click="logout()" value="logout">
-
+        <input ng-show="!btn1" type="text" ng-model="username" placeholder="login"><br/>
+        <input ng-show="!btn1" type="text" ng-model="password" placeholder="password"><br/>
         <input type="button" ng-if="!btn1" ng-click="login()" value="login">
-
         <button ng-if="!btn1"><a href="#!/registration">registration</a></button>
+
     </div>
 
 </div>

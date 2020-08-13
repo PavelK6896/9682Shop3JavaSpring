@@ -1,0 +1,64 @@
+<h1>Product  <span>{{info}}</span></h1>
+
+<button ng-click="getListProduct()">reload</button>
+
+<fil-bar/>
+
+<table>
+    <tr>
+        <td>size {{size + 1}}</td>
+        <td>название<br/></td>
+        <td>описание</td>
+        <td>цена<br/>
+        <td>id</td>
+        <td>категории</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>*</td>
+        <td><input type="text" ng-model="search.title" ng-value=""></td>
+        <td><input type="text" ng-model="search.description" ng-value=""></td>
+        <td><input type="text" ng-model="search.price" ng-value=""/></td>
+        <td><input type="text" ng-model="search.id" ng-value=""/></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="item in products | filter:search ">
+        <td>{{$index+1}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.id}}</td>
+        <td>
+            <span ng-repeat="c in item.categories ">
+                      {{c.id}}/{{c.title}}
+            </span>
+        </td>
+        <td>
+            <button ng-click="deleteProduct(item.id)">delete</button>
+            <button ng-click="update(item)">update</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button ng-click="addProduct()">add/update</button>
+        </td>
+        <td><input type="text" ng-model="product.title" placeholder="title"></td>
+        <td><input type="text" ng-model="product.description" placeholder="description"></td>
+
+        <td><input type="text" ng-model="product.price" placeholder="price"></td>
+        <td><input ng-class="amountError" type="text" ng-model="product.id" placeholder="id"><br/>
+            <span ng-show="amountError.length>0">количество должно быть числом</span>
+        </td>
+        <td><input type="text" ng-model="product.categories[0].id" placeholder="categories.id"></td>
+        <td></td>
+    </tr>
+</table>
+<hr/>
+
+
+
+
+
+
+

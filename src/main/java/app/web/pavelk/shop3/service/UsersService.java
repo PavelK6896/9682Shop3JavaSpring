@@ -58,7 +58,7 @@ public class UsersService implements UserDetailsService {
 
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+    public Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
         return getGrantedAuthorities(getPrivileges(roles));
     }
 

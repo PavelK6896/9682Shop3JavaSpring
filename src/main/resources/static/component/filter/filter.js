@@ -1,6 +1,7 @@
 
 app.directive('filBar', () => {
     console.log('directive filBar');
+
     return {
         restrict: 'E',
         transclude: true,
@@ -16,4 +17,8 @@ app.directive('filBar', () => {
 
 app.controller('f1',  ($scope, $http, $window) => {
 
+    console.log($scope.m1)
+
+
 })
+

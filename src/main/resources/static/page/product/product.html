@@ -1,36 +1,42 @@
-<h1>Product</h1>
+<h1>Product <span>{{info}}</span></h1>
 
 <fil-bar/>
 
-{{model.message}}
+<table>
+    <tr>
+        <td>size {{size + 1}}</td>
+        <td>название<br/></td>
+        <td>описание</td>
+        <td>цена<br/>
+        <td>категории</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>*</td>
+        <td><input type="text" ng-model="search.title" ng-value=""></td>
+        <td><input type="text" ng-model="search.description" ng-value=""></td>
+        <td><input type="text" ng-model="search.price" ng-value=""/></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="item in products | filter:search ">
 
-<button ng-click="getListProduct()">getListProduct</button>
+        <td>{{$index+1}}</td>
+        <td> {{item.title}}</td>
+        <td><a href="/description"> {{item.description}} </a></td>
+        <td> {{item.price}}</td>
+        <td>
+            <span ng-repeat="c in item.categories ">
+                    {{c.title}}
+            </span>
+        </td>
 
+        <td>
+            <button>купить</button>
+        </td>
+    </tr>
+</table>
 
-<p> All product</p>
-{{size + 1}}
-<div ng-repeat='p in products'>
-    {{p}}
-    <button ng-click="deleteProduct(p.id)">delete</button>
-    <button ng-click="update(p)">update</button>
-</div>
-
-<br/>
-<hr/>
-<hr/>
-
-<input type="text" ng-model="product.id" placeholder="id">id<br/>
-<input type="text" ng-model="product.title" placeholder="title">title<br/>
-<input type="text" ng-model="product.description" placeholder="description">description<br/>
-<input type="text" ng-model="product.price" placeholder="price">price<br/>
-<input type="text" ng-model="product.categories[0].id" placeholder="categories.id">categories.id<br/>
-
-<button ng-click="addProduct()">addProduct update</button>
-<br/>
-<hr/>
-{{product}}
-<br/>
-<hr/>
 
 
 

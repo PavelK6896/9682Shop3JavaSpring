@@ -1,0 +1,24 @@
+
+.error{
+    color: red;
+    border: 1px solid #b66a6a;
+}
+
+
+table {
+    background: #fff;
+    border: 1px solid #788D8E;
+    margin: 0 auto;
+}
+
+td{
+    border: #0F1214 solid;
+    border-width: 0 1px;
+    padding: 5px 8px;
+}
+th {
+    background: #9EA3A3;
+    border: #0F1214 solid;
+    border-width: 0 1px;
+    padding: 5px 8px;
+}
