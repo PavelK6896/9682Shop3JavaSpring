@@ -21,4 +21,15 @@ app.config(function ($routeProvider) {
             templateUrl: 'page/profile/profile.html',
             controller: 'profileCtrl'
         })
+        .when('/registration', {
+            templateUrl: 'page/registration/registration.html',
+            controller: 'registrationCtrl'
+        })
+        .when('/description/:id', {
+            templateUrl: 'page/description/description.html',
+            controller: 'descriptionCtrl'
+
+
+        })
+
 });

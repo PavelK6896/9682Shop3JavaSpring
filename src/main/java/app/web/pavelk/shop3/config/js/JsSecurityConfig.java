@@ -32,7 +32,8 @@ public class JsSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile/ww/**").hasAnyRole("ADMIN")
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/orders/**").hasAnyRole("ADMIN")
-                .antMatchers("/api/v1/products/list").permitAll()
+                .antMatchers("/api/v1/products").permitAll()
+                .antMatchers("/api/v1/products/page").permitAll()
                 .antMatchers("/api/v1/**").authenticated()
 
 

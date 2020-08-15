@@ -1,6 +1,7 @@
 package app.web.pavelk.shop3.entity.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(Views.IdTitle.class)
     private Long id;
 
     @Column(name = "title")
+    @JsonView(Views.IdTitle.class)
     private String title;
 
     @ManyToMany

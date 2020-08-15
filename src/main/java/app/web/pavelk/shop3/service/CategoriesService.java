@@ -1,6 +1,7 @@
 package app.web.pavelk.shop3.service;
 
 import app.web.pavelk.shop3.entity.product.Category;
+import app.web.pavelk.shop3.entity.product.dto.CategoryDto;
 import app.web.pavelk.shop3.repo.CategoriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,12 @@ public class CategoriesService {
     }
 
     public List<Category> findAllById(List<Long> searchValues) {
+
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(searchValues);
+
+
         return categoriesRepository.findAllById(searchValues);
     }
 

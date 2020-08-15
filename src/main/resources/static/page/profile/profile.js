@@ -11,11 +11,4 @@ app.controller('profileCtrl', function ($scope, $window, $http) {
             $scope.role = userData.role
         }
     }
-
-
-
-
-
-
-
 });

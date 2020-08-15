@@ -4,7 +4,7 @@
 
 <table>
     <tr>
-        <td>size {{size + 1}}</td>
+        <td>size {{size}}</td>
         <td>название<br/></td>
         <td>описание</td>
         <td>цена<br/>
@@ -23,7 +23,8 @@
 
         <td>{{$index+1}}</td>
         <td> {{item.title}}</td>
-        <td><a href="/description"> {{item.description}} </a></td>
+
+        <td><a href="#!/description/{{item.id}}"> {{item.description}} </a></td>
         <td> {{item.price}}</td>
         <td>
             <span ng-repeat="c in item.categories ">

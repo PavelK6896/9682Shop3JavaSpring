@@ -44,4 +44,35 @@ public class ProductFilter {
             spec = spec.and(specCategories);
         }
     }
+
+
+    public ProductFilter(FilterDto filterDto, List<Category> allById) {
+        this.spec = Specification.where(null);
+        if (filterDto.getName() != null) {
+            spec = spec.and(ProductSpecifications.titleLike(filterDto.getName()));
+        }
+
+        if (filterDto.getMin() != null) {
+            spec = spec.and(ProductSpecifications.priceGreaterOrEqualsThan(Integer.parseInt(filterDto.getMin())));
+        }
+
+        if (filterDto.getMax() != null) {
+            spec = spec.and(ProductSpecifications.priceLesserOrEqualsThan(Integer.parseInt(filterDto.getMax())));
+        }
+
+        if (allById != null) {
+            Specification specCategories = null;
+            for (Category c : allById) {
+                if (specCategories == null) {
+                    specCategories = ProductSpecifications.categoryIs(c);
+                } else {
+                    specCategories = specCategories.or(ProductSpecifications.categoryIs(c));
+                }
+            }
+            spec = spec.and(specCategories);
+        }
+
+    }
+
+
 }

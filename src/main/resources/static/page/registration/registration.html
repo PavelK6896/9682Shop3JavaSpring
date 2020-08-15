@@ -1,0 +1,12 @@
+<div ng-controller="registrationCtrl">
+
+</div>
+<form name="form1">
+    <input name="myName" ng-model="myName" required ng-myvalidationcheck>
+</form>
+
+<p>Ошибки: {{form1.myName.$error}}</p>
+<p>Корректное: {{form1.myName.$valid}}</p>
+<p>Нетронутое: {{form1.myName.$untouched}}</p>
+<p>Измененное: {{form1.myName.$dirty}}</p>
+</div>

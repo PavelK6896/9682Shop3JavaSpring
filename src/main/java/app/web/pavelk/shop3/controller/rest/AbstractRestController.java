@@ -29,13 +29,17 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>
     }
 
     //1
-    @GetMapping//1 все сущьности //формируем страницу поумолчанию
+    @GetMapping(value = "/page", produces = "application/json")
     public Page<T> getAllPage(@PageableDefault Pageable pageable) {
+
+        System.out.println(pageable);
+
+
         return repo.findAll(pageable);
     }
 
     //2
-    @GetMapping(value = "/list", produces = "application/json")
+    @GetMapping( produces = "application/json")
     @ApiOperation("getAllList")
     public List<T> getAllList() {
         return repo.findAll();

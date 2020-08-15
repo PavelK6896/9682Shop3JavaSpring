@@ -1,18 +1,36 @@
-
-<link  rel="stylesheet" href="component/filter/filter.css"/>
+<link rel="stylesheet" href="component/filter/filter.css"/>
 
 
 <div ng-controller="f1" style="border: 1px solid #555;">
 
-    filter:  <input type="checkbox" ng-model="checked" aria-label="filter"><br />
+    filter: <input type="checkbox" ng-model="checked" aria-label="filter"><br/>
 
-    <div ng-show="checked">
-        <h1 class="ee">filter</h1>
-        <h1>filter</h1>
-        <h1>filter</h1>
+    <div ng-show="checked" class="filter">
+
+        name <input type="text" ng-model="name"><br/>
+        <div style="width: 300px;">
+            max price {{maxP}}
+            <md-slider md-discrete="" aria-label="Disabled 1" ng-model="maxP" step="10" min="0"
+                       max="50000"></md-slider>
+            min price {{minP}}
+            <md-slider md-discrete="" aria-label="Disabled 2" ng-model="minP" step="10" min="0"
+                       max="5000"></md-slider>
+        </div>
+
+        <div>
+            <h5>categories:</h5>
+            <div ng-repeat="item in categories" class="categories">
+                <div>
+                    <input type="checkbox" ng-click="change(item.id)"> <span>{{item.title}}</span>
+                </div>
+            </div>
+        </div>
+        <button type="button" ng-click="getFilter()">filter</button>
+
     </div>
 
 
+    {{m1}}
 
 
 </div>

@@ -1,67 +1,39 @@
-app.controller('productCtrl', function ($scope, $http, $window, $location, factory) {
+app.controller('productCtrl', function ($scope, $http, $window, $location, factory, $rootScope) {
 
     $scope.getListProduct = () => {
-        factory.getListProduct($scope, $http)
+        factory.getListProduct($scope, $http, $rootScope)
     }
+
+
+    $scope.getListProductFilter = (filter, dd ) => {
+        console.log(dd)
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/v1/products/filter',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            data: dd.dd
+
+        }).then((response) => {
+            console.log(response.data)
+            $scope.products = response.data.content;
+
+        }, (response) => {
+            console.log('error', response);
+        });
+
+
+    }
+
+    $rootScope.$on("getListProductFilter", function (filter, dd) { //export
+        $scope.getListProductFilter(filter, dd );
+    });
+
 
     $scope.getListProduct()
 
 
 });
 
-app.factory('factory', [() => {
-
-    const onAuth = () => {
-
-        return "000000";
-    }
-    this.text99 = "999"
-
-    const getListProduct = ($scope, $http) => {
-
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8080/api/v1/products/list'
-        }).then((response) => {
-            $scope.info = 'все продукты '
-            $scope.products = response.data;
-            $scope.size = response.data.length;
-            $scope.product = response.data[0];
-        }, (response) => {
-            $scope.info = 'сервер недоступен '
-            console.log('error', response);
-        });
-    }
-
-    return {
-        onAuth,
-        text99,
-        getListProduct
-    };
-}]);
-
-
-
-/////////////////////////////////
-app.controller('One', ['$scope', '$rootScope',
-    function($scope) {
-        $rootScope.$on("CallParentMethod", function(){ //export
-            $scope.parentmethod();
-        });
-
-
-        $scope.parentmethod = function() {
-            console.log("sssssssssssssssss")
-            // task
-        }
-    }
-]);
-app.controller('two', ['$scope', '$rootScope',    function($scope) {
-
-    $scope.childmethod = function() {
-        $rootScope.$emit("CallParentMethod", {}); //import
-    }
-
-
-}
-]);
