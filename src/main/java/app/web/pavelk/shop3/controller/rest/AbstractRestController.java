@@ -1,9 +1,12 @@
 package app.web.pavelk.shop3.controller.rest;
 
+import app.web.pavelk.shop3.entity.product.Product;
 import app.web.pavelk.shop3.exceptions.ProductNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +23,7 @@ import java.util.List;
 @CrossOrigin("*")
 //@CrossOrigin(origins = "http://localhost:8080")
 @Api("CRUD")
+@Slf4j
 public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>> {
     protected R repo;
 
@@ -28,18 +32,15 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>
         this.repo = repo;
     }
 
-    //1
+    //1GET
     @GetMapping(value = "/page", produces = "application/json")
     public Page<T> getAllPage(@PageableDefault Pageable pageable) {
-
         System.out.println(pageable);
-
-
         return repo.findAll(pageable);
     }
 
-    //2
-    @GetMapping( produces = "application/json")
+    //2GET
+    @GetMapping(consumes = "application/json", produces = "application/json")
     @ApiOperation("getAllList")
     public List<T> getAllList() {
         return repo.findAll();
@@ -75,39 +76,72 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>
     }
 
 
-    //6
+    //6PUT
+    @ApiOperation("Update entity")
     @PutMapping(consumes = "application/json", produces = "application/json")
-    @ApiOperation("Modifies an existing product")
     public ResponseEntity<?> modifyProduct(@RequestBody T obj) {
-        return new ResponseEntity<>(repo.save(obj), HttpStatus.OK);
+        ResponseEntity<T> tResponseEntity;
+        if (obj.getClass() == Product.class) {
+            Product p = (Product) obj;
+            if (repo.existsById(p.getId())) {
+                tResponseEntity = new ResponseEntity<>(repo.save(obj), HttpStatus.OK);
+                log.info("update " + obj.toString());
+            } else {
+                tResponseEntity = new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
+                log.info("not product " + obj.toString());
+            }
+        } else {
+            tResponseEntity = new ResponseEntity<>(obj, HttpStatus.NO_CONTENT);
+            log.info("not product " + obj.toString());
+        }
+        return tResponseEntity;
     }
 
-    //7
-    //3 добавление //получаем данные в теле собирает объект Т //присваиваеться идентификатор
+    //7POST
+    @ApiOperation("Create entity")
     @PostMapping(consumes = "application/json", produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation("Creates a new product")
-    public T add(@RequestBody T obj) {
-        return repo.save(obj);
+    public ResponseEntity<?> add(@RequestBody T obj) {
+        ResponseEntity<T> tResponseEntity;
+        if (obj.getClass() == Product.class) {
+            Product p = (Product) obj;
+
+            if (!repo.existsById(p.getId())) {
+                tResponseEntity = new ResponseEntity<>(repo.save(obj), HttpStatus.OK);
+                log.info("add " + obj.toString());
+            } else {
+                tResponseEntity = new ResponseEntity<>(obj, HttpStatus.ALREADY_REPORTED);
+                log.info("exists product " + obj.toString());
+            }
+        } else {
+            tResponseEntity = new ResponseEntity<>(obj, HttpStatus.NO_CONTENT);
+            log.info("not product " + obj.toString());
+        }
+        return tResponseEntity;
     }
 
-    //8
-    @DeleteMapping(value = "{id}")//5
-    @ApiOperation("Remove")
+    //8DELETE
+    @ApiOperation("Delete")
+    @DeleteMapping(value = "{id}")
     public void delete(@PathVariable(value = "id") Long id) {
+        log.info("Delete id " + id);
         repo.deleteById(id);
     }
 
-    //9
+    //9DELETE
+    @ApiOperation("Delete all")
     @DeleteMapping
-    @ApiOperation("Removes all products")
-    public void deleteAllProducts() {
-        System.out.println("DeleteMapping");
-       // repo.deleteAll();
+    public void deleteAll() {
+        log.info("Delete all");
+        repo.deleteAll();
     }
 
     @ExceptionHandler
     public ResponseEntity<?> handleException(ProductNotFoundException exc) {
         return new ResponseEntity<>(exc.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<?> jsonException(InvalidDataAccessApiUsageException exc) {
+        return new ResponseEntity<>(exc.getMessage(), HttpStatus.NO_CONTENT);
     }
 }

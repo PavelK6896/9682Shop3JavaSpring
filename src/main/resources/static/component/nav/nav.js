@@ -19,7 +19,6 @@ app.controller('navBarCtrl',  ($scope, $http, $window, factory) => {
     $scope.text1 = ""
     $scope.admin = false
 
-
     if ($window.sessionStorage.userData !== 'undefined' ){
         if ($window.sessionStorage.userData !== undefined){
             const userData = JSON.parse($window.sessionStorage.userData)
@@ -30,7 +29,6 @@ app.controller('navBarCtrl',  ($scope, $http, $window, factory) => {
             if (userData.role === 'ROLE_ADMIN'){
                 $scope.admin = true
             }
-
         }
     }
 
@@ -56,8 +54,6 @@ app.controller('navBarCtrl',  ($scope, $http, $window, factory) => {
         $scope.username = ''
         $scope.password = ''
 
-
-
         $http.defaults.headers.common['Authorization'] = 'Basic ' + token;
 
         $http({
@@ -65,8 +61,6 @@ app.controller('navBarCtrl',  ($scope, $http, $window, factory) => {
             url: 'http://localhost:8080/profile/api/v1/authorization'
         }).then((response) => {
             console.log('login success', response);
-
-
             $scope.text1 = "Authentication ok"
             $scope.btn1 = true;
             response.data.map(v => { // если админ
@@ -75,15 +69,14 @@ app.controller('navBarCtrl',  ($scope, $http, $window, factory) => {
                     $scope.admin = true
                 }
             })
-
             $window.sessionStorage.setItem('userData', JSON.stringify(userData));
         }, (response) => {
             console.log('error', response);
             $scope.text1 = "Authentication failed"
         });
-
-
-        console.log($window.sessionStorage)
+        console.log($window)
+        console.log(window)
+        console.log($http.defaults)
     }
 })
 
