@@ -22,7 +22,7 @@ public class JsSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //переопрнделяю ответ на httpBasic fail login to data base user
         AuthenticationEntryPoint entryPoint = (httpServletRequest, httpServletResponse, e) -> {
-            httpServletResponse.setHeader("no no", "Not Form");
+//            httpServletResponse.setHeader("no no", "Not Form");
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
         };
 
@@ -35,7 +35,6 @@ public class JsSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/products").permitAll()
                 .antMatchers("/api/v1/products/page").permitAll()
                 .antMatchers("/api/v1/**").authenticated()
-
 
                 .anyRequest().permitAll()
                 .and()

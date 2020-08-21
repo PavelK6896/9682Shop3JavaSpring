@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-<!--        <project.build.finalName>9682Shop3JavaSpring-1.0-SNAPSHOT</project.build.finalName>-->
+        <!--        <project.build.finalName>9682Shop3JavaSpring-1.0-SNAPSHOT</project.build.finalName>-->
     </properties>
 
     <dependencies>
@@ -70,7 +70,7 @@
             <version>5.4.19.Final</version>
         </dependency>
 
-<!--        validator-->
+        <!--        validator-->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -88,6 +88,13 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!--        aop-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.2</version>
         </dependency>
 
         <!--        security-->
@@ -157,11 +164,6 @@
         </dependency>
 
     </dependencies>
-
-
-
-
-
 
 
     <build>
