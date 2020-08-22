@@ -41,12 +41,17 @@ public class RestController2 {
         return all;
     }
 
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @PostMapping(value = "/filter")
     public Page<Product> getFilter(@RequestBody String jsonString) throws JsonProcessingException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        FilterDto filterDto = mapper.readValue(jsonString, FilterDto.class);
+        FilterDto filterDto = objectMapper.readValue(jsonString, FilterDto.class);
 
         List<Category> allById = null;
 

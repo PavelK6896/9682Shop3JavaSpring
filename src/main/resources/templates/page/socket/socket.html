@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+        console.log("script")
+        var stomp = null;
+        var socket = new SockJS('/socket');
+        stomp = Stomp.over(socket);
+        stomp.connect({}, function (frame) {
+            stomp.subscribe('/topic/items', function (item) {
+                console.log("***************************")
+                renderItem(JSON.parse(item.body).content);
+            });
+        });
+
+        $(function () { // хук на интерфейс
+            $("form").on('submit', function (e) {
+                e.preventDefault();
+            });
+            $("#send").click(function () {
+                sendContent();
+            });
+        });
+
+        function sendContent() { // отправка сообщения на сервер
+            stomp.send("/app/item", {}, JSON.stringify({'content': $("#content").val()}));
+        }
+        function renderItem(text) { // рендер сообщения, полученного от сервера
+            $("#list").append("<li style='color: red'>" + text + "</li>");
+        }
+
+    </script>
+
+
+</head>
+<body>
+<h3>Comments</h3>
+<ul th:if="${items}" id="list">
+    <li th:each="item: ${items}"><span th:text="${item.content}">comment</span></li>
+</ul>
+
+<div id="whatsup">
+    <form>
+        <label for="content">What's up?</label>
+        <input type="text" id="content" placeholder="type news here...">
+        <button id="send" type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
