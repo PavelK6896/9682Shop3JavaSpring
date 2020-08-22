@@ -4,9 +4,6 @@ justify-content: space-around;
 border: 1px solid #555;
 ">
 
-<!--    g-hide-->
-<!--    ng-show-->
-
     <div>
         <a href="#!/">Home</a>
         <a href="#!/product">Product</a>
@@ -20,11 +17,13 @@ border: 1px solid #555;
 
     <div>
         <div>{{name}}  <span ng-if='admin'> admin: {{admin}} </span> <br/> {{text1}}</div>
-        <input type="button" ng-if="btn1" ng-click="logout()" value="logout">
+
+
         <input ng-show="!btn1" type="text" ng-model="username" placeholder="login"><br/>
         <input ng-show="!btn1" type="text" ng-model="password" placeholder="password"><br/>
+
         <input type="button" ng-if="!btn1" ng-click="login()" value="login">
-        <button ng-if="!btn1"><a href="#!/registration">registration</a></button>
+        <input type="button" ng-if="btn1" ng-click="logout()" value="logout">
 
     </div>
 

@@ -10,37 +10,25 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.http.HttpServletResponse;
 
-@Configuration
 @Profile("js")
+@Configuration
 @Order(90) // преаритет чем меньше тем больше
-public class JsSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
+public class BasicJsSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         //переопрнделяю ответ на httpBasic fail login to data base user
         AuthenticationEntryPoint entryPoint = (httpServletRequest, httpServletResponse, e) -> {
-//            httpServletResponse.setHeader("no no", "Not Form");
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
         };
 
         http.authorizeRequests()
-
-
-                .antMatchers("/profile/ww/**").hasAnyRole("ADMIN")
-                .antMatchers("/profile/**").authenticated()
-                .antMatchers("/orders/**").hasAnyRole("ADMIN")
-                .antMatchers("/api/v1/products").permitAll()
-                .antMatchers("/api/v1/products/page").permitAll()
-                .antMatchers("/api/v1/**").authenticated()
-
+                .antMatchers("/profile/ww/**", "/orders/**").hasAnyRole("ADMIN")
+                .antMatchers("/api/v1/products", "/api/v1/products/page").permitAll()
+                .antMatchers("/api/v1/**", "/profile/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-
                 .httpBasic().authenticationEntryPoint(entryPoint).and()
-
                 .logout()
                 .logoutSuccessUrl("/")
                 .permitAll()
@@ -48,10 +36,5 @@ public class JsSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-
     }
-
-
-
 }
