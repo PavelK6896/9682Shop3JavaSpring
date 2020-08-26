@@ -30,3 +30,20 @@ jwt:
   secret: topsecretkey123rieubherotuh3498th398gh395g8h598gh4g8gidufghdifughi43gg4334t3h4gi34uhgi35uhgi35ughi45ugho98dhf98bhg
 
 
+#management.endpoints.web.exposure.include=
+#  <список конечных точек через запятую><a href="http://localhost:8080/actuator"></a>
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: auditevents,beans,caches,health,info,sessions,shutdown,configprops,loggers,metrics
+
+
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  application:
+    name: spring-actuator
