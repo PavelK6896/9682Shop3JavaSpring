@@ -1,0 +1,40 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:c="ws/countries">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <c:getCountryRequest>
+            <c:name>Spain</c:name>
+        </c:getCountryRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:c="ws/countries">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <c:getCountryAll>
+
+        </c:getCountryAll>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:c="ws/product">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <c:getProductRequest>
+              <c:id>1</c:id>
+        </c:getProductRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:c="ws/product">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <c:getProductAllRequest>
+
+        </c:getProductAllRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
