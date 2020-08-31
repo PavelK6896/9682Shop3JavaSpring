@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionControllerAdvice {
+public class ExceptionControllerAdvice { //Совет консультационные услуги
     @ExceptionHandler//глобальный перехватчик исключения
     public ResponseEntity<?> handleRNFException(ProductNotFoundException e) {
         log.error(e.getMessage());
