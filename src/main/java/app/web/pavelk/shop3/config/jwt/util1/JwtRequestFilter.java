@@ -1,12 +1,12 @@
 package app.web.pavelk.shop3.config.jwt.util1;
 
 import app.web.pavelk.shop3.service.UsersService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -43,25 +43,58 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
         if (authHeader != null && authHeader.startsWith("Bearer ")) { // проверка наличия токена
-            jwt = authHeader.substring(7);
+            jwt = authHeader.substring(7);//орезать строку
+
+            // Здесь происходит валидация токена и будет брошено MalformedJwtException
             try {
                 username = jwtTokenUtil1.getUsernameFromToken(jwt);
-            } catch (Exception ex) {
+            } catch (ExpiredJwtException ex) {
                 System.out.println("Token is invalid: " + ex.getMessage());
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "{ msg: The token is expired }");
+                return;
             }
-        }
+        }//если токен коректный
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = usersService.loadUserByUsername(username);
-            if (jwtTokenUtil1.validateToken(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken token =
-                        new UsernamePasswordAuthenticationToken(userDetails,
-                                null, userDetails.getAuthorities());
-                token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(token);
-            }
+            UserDetails userDetails = usersService.loadUserByUsername(username);//детали из токена
+            //  if (jwtTokenUtil1.validateToken(jwt, userDetails)) {
+            UsernamePasswordAuthenticationToken token =
+                    new UsernamePasswordAuthenticationToken(userDetails,
+                            null, userDetails.getAuthorities());
+
+            token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(token);//добовляем юзера в контекст
+            //  }
         }
 
-        filterChain.doFilter(request, response);
+
+        filterChain.doFilter(request, response);//следующий фильтор
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

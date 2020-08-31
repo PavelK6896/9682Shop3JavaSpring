@@ -34,20 +34,20 @@ public class JwtTokenUtil1 {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    private Date getExpirationDateFromToken(String token) {
-        return getClaimFromToken(token, Claims::getExpiration);
-    }
+//    private Date getExpirationDateFromToken(String token) {
+//        return getClaimFromToken(token, Claims::getExpiration);
+//    }
 
-    public Boolean validateToken(String token) {
-        return !isTokenExpired(token);
-    }
+//    public Boolean validateToken(String token) {
+//        return !isTokenExpired(token);
+//    }
+//
+//    public Boolean validateToken(String token, UserDetails userDetails) {
+//        String username = getUsernameFromToken(token);
+//        return Objects.equals(username, userDetails.getUsername()) && !isTokenExpired(token);
+//    }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        String username = getUsernameFromToken(token);
-        return Objects.equals(username, userDetails.getUsername()) && !isTokenExpired(token);
-    }
-
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(UserDetails userDetails){ //логин пароль = токен
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -63,22 +63,27 @@ public class JwtTokenUtil1 {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuedAt(expiredDate)
+                .setIssuedAt(issuedDate)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
-    private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder()
+    private Claims getAllClaimsFromToken(String token) {//из токена достать юсера
+        return Jwts.parser()
                 .setSigningKey(secret)
-                .build()
                 .parseClaimsJws(token)
                 .getBody();
+
+//        return Jwts.parserBuilder()
+//                .setSigningKey(secret)
+//                .build()
+//                .parseClaimsJws(token)
+//                .getBody();
     }
 
-    private boolean isTokenExpired(String token) {
-        Date date = getExpirationDateFromToken(token);
-        return date != null && date.before(new Date());
-    }
+//    private boolean isTokenExpired(String token) {
+//        Date date = getExpirationDateFromToken(token);
+//        return date != null && date.before(new Date());
+//    }
 }

@@ -1,11 +1,14 @@
 package app.web.pavelk.shop3.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AdditionalController {
+    @Value("${spring.profiles.active:Unknown}")
+    private String activeProfile;
+
     @GetMapping("/about")
     public String aboutPage() {
         return "page/about";
@@ -13,6 +16,12 @@ public class AdditionalController {
 
     @GetMapping("/")
     public String homepage() {
+        System.out.println("activeProfile == " + activeProfile);
+        if (activeProfile.equals("jwt") ) {
+            return "../static/index";
+        }else if(activeProfile.equals("jsBasic")){
+            return "../static/indexBasic";
+        }
         return "page/index";
     }
 
@@ -21,6 +30,4 @@ public class AdditionalController {
         return "page/login_page";
     }
 
-
-    
 }

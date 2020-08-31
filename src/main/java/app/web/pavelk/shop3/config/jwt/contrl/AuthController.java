@@ -4,10 +4,12 @@ package app.web.pavelk.shop3.config.jwt.contrl;
 import app.web.pavelk.shop3.config.jwt.dto.JwtRequest;
 import app.web.pavelk.shop3.config.jwt.dto.JwtResponse;
 import app.web.pavelk.shop3.config.jwt.util1.JwtTokenUtil1;
+import app.web.pavelk.shop3.exceptions.JulyMarketError;
 import app.web.pavelk.shop3.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -43,7 +45,11 @@ public class AuthController {
         try {
             authenticate(authRequest.getUsername(), authRequest.getPassword());
         } catch (BadCredentialsException ex) {
-            throw new Exception("Incorrect username or password", ex);
+//            throw new Exception("Incorrect username or password", ex);
+
+            return new ResponseEntity<>(new JulyMarketError(HttpStatus.UNAUTHORIZED.value(),
+                    "Incorrect username or password"), HttpStatus.UNAUTHORIZED);
+
         }
 
         UserDetails userDetails = usersService.loadUserByUsername(authRequest.getUsername());
@@ -54,4 +60,33 @@ public class AuthController {
     private void authenticate(String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

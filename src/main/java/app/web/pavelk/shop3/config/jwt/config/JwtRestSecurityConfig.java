@@ -35,7 +35,8 @@ public class JwtRestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("jwt jwt jwt jwt configure");
-        http.csrf().disable().authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/profile/ww/**", "/orders/**").hasAnyRole("ADMIN")
                 .antMatchers("/api/v1/products", "/api/v1/products/page").permitAll()
                 .antMatchers("/api/v1/**", "/profile/**").authenticated()
@@ -44,6 +45,8 @@ public class JwtRestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+
 
 
 

@@ -10,7 +10,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.http.HttpServletResponse;
 
-@Profile("js")
+@Profile("jsBasic")
 @Configuration
 @Order(90) // преаритет чем меньше тем больше
 public class BasicJsSecurityConfig extends WebSecurityConfigurerAdapter {
