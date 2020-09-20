@@ -33,6 +33,8 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     @JsonBackReference
     private List<Product> products;
+    //@JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+    // @JsonBackReference is the back part of reference – it will be omitted from serialization.
 
     public Category(Long id, String title) {
         this.id = id;

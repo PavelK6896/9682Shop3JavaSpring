@@ -4,6 +4,7 @@ package app.web.pavelk.shop3.entity.order;
 import app.web.pavelk.shop3.beans.Cart;
 import app.web.pavelk.shop3.entity.user.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Data
+@NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)//каскадный
     private List<OrderItem> items;
 
     @Column(name = "price")

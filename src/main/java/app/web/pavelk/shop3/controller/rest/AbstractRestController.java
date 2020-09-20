@@ -144,4 +144,6 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, Long>
     public ResponseEntity<?> jsonException(InvalidDataAccessApiUsageException exc) {
         return new ResponseEntity<>(exc.getMessage(), HttpStatus.NO_CONTENT);
     }
+
+
 }

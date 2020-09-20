@@ -224,6 +224,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- PayPal -->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
         <!--		test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
