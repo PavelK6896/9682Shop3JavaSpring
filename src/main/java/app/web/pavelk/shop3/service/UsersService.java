@@ -160,5 +160,12 @@ public class UsersService implements UserDetailsService {
         return usersRepository.save(user);
     }
 
+    public boolean isUserExist(String phone) {
+        return usersRepository.existsByPhone(phone);
+    }
+
+    public User save(User user) {
+        return usersRepository.save(user);
+    }
 
 }
